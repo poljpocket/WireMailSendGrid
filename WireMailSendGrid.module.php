@@ -1,4 +1,7 @@
-<?php
+<?php namespace ProcessWire;
+
+use Exception;
+use SendGrid\Mail\Mail;
 
 
 /**
@@ -57,7 +60,7 @@ class WireMailSendGrid extends WireMail implements Module, ConfigurableModule {
         // set up an email with SendGrids PHP API
         //----------------------------------
 
-        $this->email = new \SendGrid\Mail\Mail();
+        $this->email = new Mail();
 
 
         // Add additional keys to mail
@@ -107,8 +110,7 @@ class WireMailSendGrid extends WireMail implements Module, ConfigurableModule {
             $this->email->setOpenTracking(
                 true,
                 $this->sendGridOpenTrackingSubstitutionTag
-                    ? $this->sendGridOpenTrackingSubstitutionTag
-                    : null
+                    ?: null
             );
 
         }
@@ -122,14 +124,11 @@ class WireMailSendGrid extends WireMail implements Module, ConfigurableModule {
             $this->email->setSubscriptionTracking(
                 true,
                 $this->sendGridSubscriptionTrackingText
-                    ? $this->sendGridSubscriptionTrackingText
-                    : null,
+                    ?: null,
                 $this->sendGridSubscriptionTrackingHTML
-                    ? $this->sendGridSubscriptionTrackingHTML
-                    : null,
+                    ?: null,
                 $this->sendGridSubscriptionTrackingSubstitutionTag
-                    ? $this->sendGridSubscriptionTrackingSubstitutionTag
-                    : null
+                    ?: null
             );
 
         }
@@ -143,20 +142,15 @@ class WireMailSendGrid extends WireMail implements Module, ConfigurableModule {
             $this->email->setGanalytics(
                 true,
                 $this->sendGridAnalyticsUtmSource
-                    ? $this->sendGridAnalyticsUtmSource
-                    : null,
+                    ?: null,
                 $this->sendGridAnalyticsUtmMedium
-                    ? $this->sendGridAnalyticsUtmMedium
-                    : null,
+                    ?: null,
                 $this->sendGridAnalyticsUtmTerm
-                    ? $this->sendGridAnalyticsUtmTerm
-                    : null,
+                    ?: null,
                 $this->sendGridAnalyticsUtmContent
-                    ? $this->sendGridAnalyticsUtmContent
-                    : null,
+                    ?: null,
                 $this->sendGridAnalyticsUtmCampaign
-                    ? $this->sendGridAnalyticsUtmCampaign
-                    : null
+                    ?: null
             );
 
         }
@@ -187,9 +181,9 @@ class WireMailSendGrid extends WireMail implements Module, ConfigurableModule {
         // set a from address
         //----------------------------------
 
-        $fromEmail = $this->from ? $this->from : $this->sendGridFromEmail;
+        $fromEmail = $this->from ?: $this->sendGridFromEmail;
 
-        $fromName = $this->fromName ? $this->fromName : '';
+        $fromName = $this->fromName ?: '';
 
         if (!$fromName
             && $fromEmail === $this->sendGridFromEmail
@@ -205,11 +199,11 @@ class WireMailSendGrid extends WireMail implements Module, ConfigurableModule {
         // set a reply to address if different to from
         //----------------------------------
 
-        $replyToEmail = $this->mail['replyTo'] ? $this->mail['replyTo'] : $this->sendGridReplyToEmail;
+        $replyToEmail = $this->mail['replyTo'] ?: $this->sendGridReplyToEmail;
 
         if (!$replyToEmail) $replyToEmail = $fromEmail;
 
-        $replyToName = $this->mail['replyToName'] ? $this->mail['replyToName'] : '';
+        $replyToName = $this->mail['replyToName'] ?: '';
 
         if (!$replyToName
             && $replyToEmail === $this->sendGridReplyToEmail
@@ -365,7 +359,7 @@ class WireMailSendGrid extends WireMail implements Module, ConfigurableModule {
         // Create instance of authenticated SendGrid API
         //----------------------------------
 
-        $sendgrid = new \SendGrid($this->sendGridApiKey);
+        $sendgrid = new SendGrid($this->sendGridApiKey);
 
         try {
 
