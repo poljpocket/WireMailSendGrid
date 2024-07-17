@@ -286,7 +286,7 @@ class WireMailSendGrid extends WireMail implements Module, ConfigurableModule {
 
                 if(!$content) continue;
 
-                $mimeType = mime_content_type($filename);
+                $mimeType = mime_content_type($attachmentPayload['path']);
 
                 if(!$mimeType) continue;
 
