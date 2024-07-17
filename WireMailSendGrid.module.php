@@ -1,6 +1,7 @@
 <?php namespace ProcessWire;
 
 use Exception;
+use SendGrid;
 use SendGrid\Mail\Mail;
 
 
