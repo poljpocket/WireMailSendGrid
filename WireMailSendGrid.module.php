@@ -54,7 +54,7 @@ class WireMailSendGrid extends WireMail implements Module, ConfigurableModule {
         // get the SendGrid Classes
         //----------------------------------
 
-        require_once( __DIR__ . '/sendgrid-php/sendgrid-php.php' );
+        require_once( __DIR__ . '/vendor/autoload.php' );
 
 
         // set up an email with SendGrids PHP API
